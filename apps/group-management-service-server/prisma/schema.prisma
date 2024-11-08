@@ -1,0 +1,45 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DB_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Member {
+  createdAt DateTime        @default(now())
+  id        String          @id @default(cuid())
+  role      EnumMemberRole?
+  updatedAt DateTime        @updatedAt
+}
+
+model Group {
+  contributionAmount Float?
+  createdAt          DateTime            @default(now())
+  frequency          EnumGroupFrequency?
+  groupName          String?
+  id                 String              @id @default(cuid())
+  payoutDates        Json?
+  updatedAt          DateTime            @updatedAt
+}
+
+model Invitation {
+  createdAt    DateTime              @default(now())
+  emailOrPhone String?
+  id           String                @id @default(cuid())
+  status       EnumInvitationStatus?
+  updatedAt    DateTime              @updatedAt
+}
+
+enum EnumMemberRole {
+  Option1
+}
+
+enum EnumGroupFrequency {
+  Option1
+}
+
+enum EnumInvitationStatus {
+  Option1
+}
