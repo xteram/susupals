@@ -1,0 +1,41 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DB_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model PayoutSchedule {
+  createdAt DateTime  @default(now())
+  date      DateTime?
+  id        String    @id @default(cuid())
+  member    String?
+  updatedAt DateTime  @updatedAt
+}
+
+model TransactionHistory {
+  createdAt DateTime                         @default(now())
+  details   Json?
+  id        String                           @id @default(cuid())
+  typeField EnumTransactionHistoryTypeField?
+  updatedAt DateTime                         @updatedAt
+}
+
+model Contribution {
+  amount    Float?
+  createdAt DateTime                @default(now())
+  date      DateTime?
+  id        String                  @id @default(cuid())
+  status    EnumContributionStatus?
+  updatedAt DateTime                @updatedAt
+}
+
+enum EnumTransactionHistoryTypeField {
+  Option1
+}
+
+enum EnumContributionStatus {
+  Option1
+}
